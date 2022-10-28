@@ -32,6 +32,11 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.actualiProducto(producto));
     }
 
+    @GetMapping("/")
+    public ResponseEntity<?> listarProductos() {
+        return ResponseEntity.ok(productoService.obtenerProductos());
+    }
+
     @GetMapping("/{productoId}")
     public Producto listarProducto(@PathVariable("productoId") Long productoId) {
         return productoService.obtenerProducto(productoId);

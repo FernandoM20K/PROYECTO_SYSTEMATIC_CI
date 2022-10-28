@@ -1,5 +1,8 @@
 package com.utp.edu.services.Impl;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.utp.edu.models.Producto;
@@ -32,5 +35,10 @@ public class ProductoServiceImpl implements ProductoService{
         Producto producto = new Producto();
         producto.setProductoId(productoId);
         productoRepository.delete(producto);
+    }
+
+    @Override
+    public Set<Producto> obtenerProductos() {
+        return new LinkedHashSet<>(productoRepository.findAll());
     }
 }

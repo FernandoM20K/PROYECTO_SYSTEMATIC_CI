@@ -10,9 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 
-@Data
 @Entity
 @Table(name = "tb_categorias")
 public class Categoria {
@@ -27,5 +25,31 @@ public class Categoria {
     @JsonIgnore
     private Set<Producto> productos = new LinkedHashSet<>();
 
+    public Categoria() {
+    
+    }
 
+    public Long getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(Long categoriaId) {
+        this.categoriaId = categoriaId;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Set<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(Set<Producto> productos) {
+        this.productos = productos;
+    }
 }
