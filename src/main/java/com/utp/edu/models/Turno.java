@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,9 +22,9 @@ public class Turno {
 
     private String nombreTurno;
 
-    @OneToMany(mappedBy = "turno", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "turno")
     @JsonIgnore
-    private Set<Profesor> profesores = new LinkedHashSet<>();
+    private Set<CursoVenta> cursoVentas = new LinkedHashSet<>();
 
     public Turno() {
     
@@ -45,11 +46,11 @@ public class Turno {
         this.nombreTurno = nombreTurno;
     }
 
-    public Set<Profesor> getProfesores() {
-        return profesores;
+    public Set<CursoVenta> getCursoVentas() {
+        return cursoVentas;
     }
 
-    public void setProfesores(Set<Profesor> profesores) {
-        this.profesores = profesores;
+    public void setCursoVentas(Set<CursoVenta> cursoVentas) {
+        this.cursoVentas = cursoVentas;
     }
 }
