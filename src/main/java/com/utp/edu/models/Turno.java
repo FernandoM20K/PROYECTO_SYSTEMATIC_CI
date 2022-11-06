@@ -1,7 +1,6 @@
 package com.utp.edu.models;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,11 +19,11 @@ public class Turno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long turnoId;
 
-    private String nombreTurno;
+    private String nombre;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "turno")
     @JsonIgnore
-    private Set<CursoVenta> cursoVentas = new LinkedHashSet<>();
+    private List<CursoVenta> cursoVentas;
 
     public Turno() {
     
@@ -38,19 +37,22 @@ public class Turno {
         this.turnoId = turnoId;
     }
 
-    public String getNombreTurno() {
-        return nombreTurno;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreTurno(String nombreTurno) {
-        this.nombreTurno = nombreTurno;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public Set<CursoVenta> getCursoVentas() {
+    public List<CursoVenta> getCursoVentas() {
         return cursoVentas;
     }
 
-    public void setCursoVentas(Set<CursoVenta> cursoVentas) {
+    public void setCursoVentas(List<CursoVenta> cursoVentas) {
         this.cursoVentas = cursoVentas;
     }
+
+    
+    
 }

@@ -1,7 +1,6 @@
 package com.utp.edu.models;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +22,7 @@ public class Categoria {
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Producto> productos = new LinkedHashSet<>();
+    private List<Producto> productos;
 
     public Categoria() {
     
@@ -45,11 +44,11 @@ public class Categoria {
         this.nombre = nombre;
     }
 
-    public Set<Producto> getProductos() {
+    public List<Producto> getProductos() {
         return productos;
     }
 
-    public void setProductos(Set<Producto> productos) {
+    public void setProductos(List<Producto> productos) {
         this.productos = productos;
     }
 }

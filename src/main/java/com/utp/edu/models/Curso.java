@@ -1,7 +1,6 @@
 package com.utp.edu.models;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -23,6 +21,8 @@ public class Curso {
 
     private String nombre;
 
+    private String descripcion;
+
     private int duracionSemanas;
 
     private int horasSemanales;
@@ -31,7 +31,7 @@ public class Curso {
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "curso")
     @JsonIgnore
-    private Set<CursoVenta> cursoVentas = new HashSet<>();
+    private List<CursoVenta> cursoVentas;
 
     public Curso() {
     
@@ -51,6 +51,14 @@ public class Curso {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public int getDuracionSemanas() {
@@ -77,11 +85,11 @@ public class Curso {
         this.precio = precio;
     }
 
-    public Set<CursoVenta> getCursoVentas() {
+    public List<CursoVenta> getCursoVentas() {
         return cursoVentas;
     }
 
-    public void setCursoVentas(Set<CursoVenta> cursoVentas) {
+    public void setCursoVentas(List<CursoVenta> cursoVentas) {
         this.cursoVentas = cursoVentas;
     }
 }

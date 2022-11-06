@@ -1,25 +1,22 @@
 package com.utp.edu.models;
 
-import java.util.List;
-import javax.persistence.CascadeType;
+import java.util.Calendar;
+
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "tb_profesores")
-public class Profesor {
-
+@Table(name = "tb_estudiantes")
+public class Estudiante {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long profesorId;
+    private Long estudianteId;
 
     private String nombre;
 
@@ -33,28 +30,21 @@ public class Profesor {
 
     private String email;
 
-    private double sueldo;
+    @Temporal(TemporalType.DATE)
+    private Calendar fechaIngreso;
 
     private boolean estado;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "sedeId")
-    private Sede sede;
+    public Estudiante() {
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "profesor")
-    @JsonIgnore
-    private List<CursoVenta> cursoVentas;
-
-    public Profesor() {
-    
     }
 
-    public Long getProfesorId() {
-        return profesorId;
+    public Long getEstudianteId() {
+        return estudianteId;
     }
 
-    public void setProfesorId(Long profesorId) {
-        this.profesorId = profesorId;
+    public void setEstudianteId(Long estudianteId) {
+        this.estudianteId = estudianteId;
     }
 
     public String getNombre() {
@@ -105,12 +95,12 @@ public class Profesor {
         this.email = email;
     }
 
-    public double getSueldo() {
-        return sueldo;
+    public Calendar getFechaIngreso() {
+        return fechaIngreso;
     }
 
-    public void setSueldo(double sueldo) {
-        this.sueldo = sueldo;
+    public void setFechaIngreso(Calendar fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
     }
 
     public boolean isEstado() {
@@ -120,21 +110,4 @@ public class Profesor {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
-    public List<CursoVenta> getCursoVentas() {
-        return cursoVentas;
-    }
-
-    public void setCursoVentas(List<CursoVenta> cursoVentas) {
-        this.cursoVentas = cursoVentas;
-    }
-
-    public Sede getSede() {
-        return sede;
-    }
-
-    public void setSede(Sede sede) {
-        this.sede = sede;
-    }
-
 }
