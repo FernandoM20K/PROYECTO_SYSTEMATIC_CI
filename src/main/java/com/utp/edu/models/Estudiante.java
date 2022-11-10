@@ -1,14 +1,21 @@
 package com.utp.edu.models;
 
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_estudiantes")
@@ -32,6 +39,11 @@ public class Estudiante {
 
     @Temporal(TemporalType.DATE)
     private Calendar fechaIngreso;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "estudiante_Id")
+    private List<CursosEstudiante> cursosEstudiante;
 
     private boolean estado;
 
@@ -110,4 +122,15 @@ public class Estudiante {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public List<CursosEstudiante> getCursosEstudiante() {
+        return cursosEstudiante;
+    }
+
+    public void setCursosEstudiante(List<CursosEstudiante> cursosEstudiante) {
+        this.cursosEstudiante = cursosEstudiante;
+    }
+
+    
+    
 }
