@@ -1,54 +1,63 @@
 package com.utp.edu.security;
 
-import java.io.IOException;
-import java.util.Collections;
+import io.jsonwebtoken.ExpiredJwtException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.utp.edu.services.Impl.UserDetailsServiceImpl;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+@Component
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
-public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
-    
+    @Autowired
+    private JwtUtils jwtUtil;
+
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-            throws AuthenticationException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String requestTokenHeader = request.getHeader("Authorization");
+        String username = null;
+        String jwtToken = null;
 
-        AuthCredentials authCredentials = new AuthCredentials();
+        if(requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")){
+            jwtToken = requestTokenHeader.substring(7);
 
-        try {
-            authCredentials = new ObjectMapper().readValue(request.getReader(), AuthCredentials.class);
-        } catch (IOException e) {
-            
+            try{
+                username = this.jwtUtil.extractUsername(jwtToken);
+            }catch (ExpiredJwtException exception){
+                System.out.println("El token ha expirado");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }else{
+            System.out.println("Token invalido , no empieza con bearer string");
         }
 
-        UsernamePasswordAuthenticationToken usernamePAT = new UsernamePasswordAuthenticationToken(
-            authCredentials.getEmail(),
-            authCredentials.getPassword(),
-            Collections.emptyList()
-        );
+        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+            if(this.jwtUtil.validateToken(jwtToken,userDetails)){
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-        return getAuthenticationManager().authenticate(usernamePAT);
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
+        }else{
+            System.out.println("El token no es valido");
+        }
+        filterChain.doFilter(request,response);
     }
-
-    @Override
-    protected void successfulAuthentication(HttpServletRequest request,
-                                            HttpServletResponse response,
-                                            FilterChain chain,
-                                            Authentication authResult) throws IOException, ServletException {
-        
-        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authResult.getPrincipal();
-        String token = TokenUtils.createToken(userDetailsImpl.getNombre(), userDetailsImpl.getUsername());
-
-        response.addHeader("Authorization", "Bearer "+token);
-        response.getWriter().flush();
-    }
-
 }

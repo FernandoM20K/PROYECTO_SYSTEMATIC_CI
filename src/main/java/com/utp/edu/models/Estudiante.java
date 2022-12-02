@@ -41,7 +41,7 @@ public class Estudiante {
     private Calendar fechaIngreso;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL) //TODO: UN ESTUDIANTE TIENE VARIOS CURSOS
     @JoinColumn(name = "estudiante_Id")
     private List<CursosEstudiante> cursosEstudiante;
 

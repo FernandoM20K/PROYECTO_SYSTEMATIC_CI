@@ -53,25 +53,76 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-api</artifactId>
-			<version>0.11.5</version>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.1</version>
 		</dependency>
 
 		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-impl</artifactId>
-			<version>0.11.5</version>
-			<scope>runtime</scope>
+			<groupId>com.github.librepdf</groupId>
+			<artifactId>openpdf</artifactId>
+			<version>1.3.30</version>
 		</dependency>
 
 		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-jackson</artifactId>
-			<version>0.11.5</version>
-			<scope>runtime</scope>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.2.2</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!--SSAASAASASAS-AA-ASASASAAAS-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf -->
+		<dependency>
+			<groupId>org.xhtmlrenderer</groupId>
+			<artifactId>flying-saucer-pdf</artifactId>
+			<version>9.1.22</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.jtidy</groupId>
+			<artifactId>jtidy</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

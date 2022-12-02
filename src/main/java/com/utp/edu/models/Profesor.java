@@ -13,12 +13,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
-@Table(name = "tb_profesores")
+@Entity //TODO: Define que es una entidad
+@Table(name = "tb_profesores") //TODO: Nombre de la tabla
 public class Profesor {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //TODO: Define que va a ser la primary Key de la Tabla
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //TODO: Autoincrementable
     private Long profesorId;
 
     private String nombre;
@@ -37,7 +37,7 @@ public class Profesor {
 
     private boolean estado;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER) //TODO: Muchos  A Uno
     @JoinColumn(name = "sedeId")
     private Sede sede;
 
